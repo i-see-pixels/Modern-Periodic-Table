@@ -7,23 +7,36 @@ void App::initWindow() {
 
 	std::fstream ifs("Config/window.ini");
 	
+	this->videoModes = sf::VideoMode::getFullscreenModes();
 	std::string title = "None";
-	sf::VideoMode window_bounds(800, 600);
+	sf::VideoMode window_bounds = sf::VideoMode::getDesktopMode();
 	unsigned framerate_limit = 60;
 	bool virtual_sync_enabled = false;
+	bool fullScreen = false;
+	unsigned antialiasing_level = 0;
+
 
 	if (ifs.is_open())
 	{
 		std::getline(ifs, title);
 		ifs >> window_bounds.width >> window_bounds.height;
+		ifs >> fullScreen;
 		ifs >> framerate_limit;
 		ifs >> virtual_sync_enabled;
+		ifs >> antialiasing_level;
 
 	}
 
 	ifs.close();
 
-	this->window = new sf::RenderWindow(window_bounds, title);
+	sf::ContextSettings windowSettings;
+	windowSettings.antialiasingLevel = antialiasing_level;
+
+	if(fullScreen)
+		this->window = new sf::RenderWindow(window_bounds, title, sf::Style::Fullscreen, windowSettings);
+	else
+		this->window = new sf::RenderWindow(window_bounds, title, sf::Style::Default, windowSettings);
+		
 	this->window->setFramerateLimit(framerate_limit);
 	this->window->setVerticalSyncEnabled(virtual_sync_enabled);
 
@@ -31,7 +44,7 @@ void App::initWindow() {
 
 void App::initState()
 {
-	this->states.push(new AppState(this->window));
+	this->states.push(new MainMenuState(this->window, &this->states));
 }
 
 App::App()
@@ -48,6 +61,11 @@ App::~App()
 		delete this->states.top();
 		this->states.pop();
 	}
+}
+
+void App::endApp()
+{
+	std::cout << "Ending App" << std::endl;
 }
 
 void App::updateDt()
@@ -90,7 +108,21 @@ void App::update()
 
 	if (!this->states.empty()) {
 		this->states.top()->update(this->dt);
+		
+		if (this->states.top()->getQuit()) {
+			delete this->states.top();
+			this->states.pop();
+		}
 	}
+
+	else
+	{
+		this->endApp();
+		this->window->close();
+	}
+
+
+
 }
 
 void App::run()

@@ -5,15 +5,14 @@ class AppState :
     public State
 {
 private:
-
+    Entity player;
 
 public:
-    AppState(sf::RenderWindow* window);
+    AppState(sf::RenderWindow* window, std::stack<State*>* states);
     virtual ~AppState();
 
-    void checkForQuit();
-
+    void updateInput(const float& dt);
     void update(const float& dt);
-    void render(sf::RenderTarget* target = nullptr);
+    void render(sf::RenderTarget* target = NULL);
 };
 

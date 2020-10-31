@@ -1,35 +1,37 @@
 #ifndef STATE_H
 #define STATE_H
 
-#include<iostream>
-#include<ctime>
-#include<cstdlib>
-#include<vector>
-#include<fstream>
-#include<sstream>
-#include<stack>
-#include<map>
-
-
-#include<SFML/Graphics.hpp>
-#include<SFML/Window.hpp>
-#include<SFML/Network.hpp>
-#include<SFML/System.hpp>
-#include<SFML/Audio.hpp>
+#include"Entity.h"
 
 class State
 {
 private:
+	
+
+protected:
+	std::stack<State*>* states;
 	sf::RenderWindow* window;
 	std::vector<sf::Texture> texture;
+	sf::Font font;
+
+	std::string stateName;
 	bool quit;
 
+	sf::Vector2i mousePosScreen;
+	sf::Vector2i mousePosWindow;
+	sf::Vector2f mousePosView;
+
+
 public:
-	State(sf::RenderWindow* window);
+	State(sf::RenderWindow* window, std::stack<State*>* states);
 	virtual ~State();
 
-	virtual void checkForQuit() = 0;
+	const bool& getQuit() const;
+	void initFont();
 
+	virtual void endState();
+	virtual void updateMousePos(const float& dt);
+	virtual void updateInput(const float& dt) = 0;
 	virtual void update(const float& dt) = 0;
 	virtual void render(sf::RenderTarget* target = nullptr) = 0;
 
