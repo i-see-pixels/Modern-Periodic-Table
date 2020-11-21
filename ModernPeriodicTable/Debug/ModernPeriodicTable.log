@@ -1,2 +1,5 @@
 ﻿  App.cpp
+  InfoState.cpp
+C:\Users\Siddhant\Desktop\Projects\Modern Periodic Table App\ModernPeriodicTable\ModernPeriodicTable\States\InfoState.cpp(85,16): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
   ModernPeriodicTable.vcxproj -> C:\Users\Siddhant\Desktop\Projects\Modern Periodic Table App\ModernPeriodicTable\Debug\ModernPeriodicTable.exe

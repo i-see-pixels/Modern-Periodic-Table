@@ -45,6 +45,9 @@
     <ClCompile Include="Components\Button.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="States\InfoState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
@@ -64,6 +67,12 @@
     </ClInclude>
     <ClInclude Include="Components\Button.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="element.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="States\InfoState.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

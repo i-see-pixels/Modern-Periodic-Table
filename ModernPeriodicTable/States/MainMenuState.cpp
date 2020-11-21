@@ -21,17 +21,12 @@ MainMenuState::~MainMenuState()
 
 void MainMenuState::initButtons()
 {
-	this->buttons["GAME_STATE"] = new Button(200, 500, 250, 80,
-		&this->font, "New Game",
+	this->buttons["APP_STATE"] = new Button(200, 500, 300, 80,
+		&this->font, "View Table",
 		sf::Color(0, 0, 0, 255), sf::Color(80, 80, 80, 255), sf::Color(150, 150, 150, 255)
 	);
 
-	this->buttons["OPTIONS"] = new Button(200, 600, 250, 80,
-		&this->font, "Options",
-		sf::Color(0, 0, 0, 255), sf::Color(80, 80, 80, 255), sf::Color(150, 150, 150, 255)
-	);
-
-	this->buttons["EXIT_STATE"] = new Button(200, 700, 250, 80,
+	this->buttons["EXIT_STATE"] = new Button(200, 600, 300, 80,
 		&this->font, "Quit",
 		sf::Color(0, 0, 0, 255), sf::Color(80, 80, 80, 255), sf::Color(150, 150, 150, 255)
 	);
@@ -68,7 +63,7 @@ void MainMenuState::updateButtons()
 		this->endState();
 	}
 
-	if (this->buttons["GAME_STATE"]->isPressed()) {
+	if (this->buttons["APP_STATE"]->isPressed()) {
 		this->states->push(new AppState(this->window, this->states));
 	}
 }
